@@ -1,23 +1,54 @@
-function Header() {
-    return (
-        <header className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
-            <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center md:justify-between">
-            <div>
-                <h1 className="text-3xl font-bold">Sandesh Tamang</h1>
-                <p className="text-sm">Faculty Lecturer | Data Analyst | Software Developer</p>
-                <p className="text-sm">Email: <a href="mailto:c4crypt@gmail.com" className="underline">c4crypt@gmail.com</a></p>
-            </div>
-            <div className="flex space-x-4 mt-4 md:mt-0 text-2xl">
-                <a href="https://github.com/sixdgt" className="hover:text-gray-300"><FaGithub/></a>
-                <a href="https://www.linkedin.com/in/codesandesh/" className="hover:text-gray-300"><FaLinkedin/></a>
-                <a href="https://www.facebook.com/codesandes" className="hover:text-gray-300"><FaFacebook/></a>
-                <a href="https://www.youtube.com/@codesandesh" className="hover:text-gray-300"><FaYoutube/></a>
-                <a href="https://www.instagram.com/codesandes/" className="hover:text-gray-300"><FaInstagram/></a>
-                <a href="https://www.tiktok.com/@codesandesh" className="hover:text-gray-300"><FaTiktok/></a>
-            </div>
-            </div>
-        </header>
-    );
-}
+import { useState } from "react";
+import { Link } from "react-scroll";
 
-export default Header;
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const links = ["hero", "skills", "projects", "education", "contact"];
+
+  return (
+    <nav className="fixed top-0 w-full bg-white shadow-md z-50">
+      <div className="max-w-6xl mx-auto px-6 flex justify-between items-center h-16">
+        <div className="text-xl font-bold text-indigo-700 cursor-pointer">Sandesh Tamang</div>
+
+        <div className="hidden md:flex space-x-6">
+          {links.map((link) => (
+            <Link
+              key={link}
+              to={link}
+              smooth={true}
+              duration={500}
+              offset={-80}
+              className="cursor-pointer text-gray-700 hover:text-indigo-700 transition-colors"
+            >
+              {link.charAt(0).toUpperCase() + link.slice(1)}
+            </Link>
+          ))}
+        </div>
+
+        <div className="md:hidden">
+          <button onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? "✖" : "☰"}
+          </button>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div className="md:hidden bg-white px-6 py-4 flex flex-col space-y-4 shadow-md">
+          {links.map((link) => (
+            <Link
+              key={link}
+              to={link}
+              smooth={true}
+              duration={500}
+              offset={-80}
+              onClick={() => setIsOpen(false)}
+              className="cursor-pointer text-gray-700 hover:text-indigo-700 transition-colors"
+            >
+              {link.charAt(0).toUpperCase() + link.slice(1)}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+}
