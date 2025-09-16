@@ -3,7 +3,7 @@ import { Link } from "react-scroll";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const links = ["hero", "skills", "projects", "education", "contact"];
+  const links = ["about", "skills", "projects", "education", "contact"];
 
   return (
     <nav className="fixed top-0 w-full bg-white shadow-md z-50">
